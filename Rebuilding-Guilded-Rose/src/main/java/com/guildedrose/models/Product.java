@@ -37,4 +37,83 @@ public class Product {
         System.out.println("Price: " + price + " " + currency);
         System.out.println("------------------------------");
     }
+
+    // Method to update quality and sellIn
+    public void updateQuality() {
+        switch (name) {
+            case "Aged Brie":
+                updateAgedBrie();
+                break;
+            case "Sulfuras, Hand of Ragnaros":
+                // Sulfuras does not change
+                break;
+            case "Backstage passes to a TAFKAL80ETC concert":
+                updateBackstagePass();
+                break;
+            default:
+                if (name.startsWith("Conjured")) {
+                    updateConjuredItem();
+                } else {
+                    updateRegularItem();
+                }
+                break;
+        }
+
+        // Ensure quality is within bounds
+        if (quality < 0) {
+            quality = 0;
+        } else if (quality > 50 && !name.equals("Sulfuras, Hand of Ragnaros")) {
+            quality = 50;
+        }
+    }
+
+    private void updateRegularItem() {
+        sellIn--;
+
+        if (quality > 0) {
+            quality--;
+        }
+
+        if (sellIn < 0 && quality > 0) {
+            quality--;
+        }
+    }
+
+    private void updateAgedBrie() {
+        sellIn--;
+
+        if (quality < 50) {
+            quality++;
+        }
+
+        if (sellIn < 0 && quality < 50) {
+            quality++;
+        }
+    }
+
+    private void updateBackstagePass() {
+        sellIn--;
+
+        if (sellIn < 0) {
+            quality = 0;
+        } else if (sellIn < 5) {
+            quality += 3;
+        } else if (sellIn < 10) {
+            quality += 2;
+        } else {
+            quality++;
+        }
+    }
+
+    private void updateConjuredItem() {
+        sellIn--;
+
+        if (quality > 0) {
+            quality -= 2;
+        }
+
+        if (sellIn < 0 && quality > 0) {
+            quality -= 2;
+        }
+    }
 }

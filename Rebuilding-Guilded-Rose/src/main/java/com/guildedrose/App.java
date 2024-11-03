@@ -2,6 +2,8 @@ package com.guildedrose;
 
 import com.guildedrose.models.Cart;
 import com.guildedrose.models.Product;
+import com.guildedrose.services.CurrencyConverter;
+import com.guildedrose.services.DiscountManager;
 import com.guildedrose.services.ProductData;
 
 import java.util.List;
@@ -21,8 +23,12 @@ public class App {
             return;
         }
 
+        // Initialize dependencies
+        DiscountManager discountManager = new DiscountManager();
+        CurrencyConverter currencyConverter = new CurrencyConverter();
+
         // Initialize the cart
-        Cart cart = new Cart();
+        Cart cart = new Cart(discountManager, currencyConverter);
 
         while (running) {
             System.out.println("\nPlease select an option:");
@@ -57,8 +63,8 @@ public class App {
                     cart.displayCart();
                     break;
                 case 4:
-                    // Checkout (To be implemented)
-                    System.out.println("Checkout feature not implemented yet.");
+                    // Checkout
+                    checkout(cart, scanner);
                     break;
                 case 5:
                     running = false;
@@ -102,4 +108,46 @@ public class App {
             System.out.println("Invalid input. Please enter a valid product number.");
         }
     }
+
+    // Method to handle checkout
+    private static void checkout(Cart cart, Scanner scanner) {
+        if (cart.getProducts().isEmpty()) {
+            System.out.println("Your cart is empty. Add some products before checking out.");
+            return;
+        }
+
+        System.out.println("\nCheckout:");
+        cart.displayCart();
+
+        // Apply discounts and show final total
+        double finalTotal = cart.calculateFinalTotal();
+        System.out.println("Total after discounts: " + String.format("%.2f", finalTotal) + " USD");
+
+        // Currency conversion
+        System.out.print("Do you want to view the total in a different currency? (yes/no): ");
+        String response = scanner.nextLine().trim().toLowerCase();
+        if (response.equals("yes")) {
+            cart.getCurrencyConverter().displaySupportedCurrencies();
+            System.out.print("Enter the currency code: ");
+            String targetCurrency = scanner.nextLine().trim().toUpperCase();
+            double convertedTotal = cart.calculateTotalInCurrency(targetCurrency);
+            System.out.println("Total in " + targetCurrency + ": " + String.format("%.2f", convertedTotal) + " " + targetCurrency);
+        }
+
+        // Confirm purchase
+        System.out.print("Do you wish to proceed with the purchase? (yes/no): ");
+        String confirm = scanner.nextLine().trim().toLowerCase();
+        if (confirm.equals("yes")) {
+            System.out.println("Purchase confirmed! Thank you for shopping at Guilded Rose.");
+            cart.getProducts().clear(); // Empty the cart after purchase
+        } else {
+            System.out.println("Purchase cancelled. You can continue shopping.");
+        }
+    }
+
+    // Accessor for CurrencyConverter in Cart
+    private static CurrencyConverter getCurrencyConverterFromCart(Cart cart) {
+        return cart.getCurrencyConverter();
+    }
+
 }

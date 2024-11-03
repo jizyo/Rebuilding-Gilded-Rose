@@ -1,13 +1,21 @@
 package com.guildedrose.models;
 
+import com.guildedrose.services.CurrencyConverter;
+import com.guildedrose.services.DiscountManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
     private final List<Product> products;
+    private final DiscountManager discountManager;
+    private final CurrencyConverter currencyConverter;
 
-    public Cart() {
-        products = new ArrayList<>();
+    // Constructor with dependencies injected
+    public Cart(DiscountManager discountManager, CurrencyConverter currencyConverter) {
+        this.products = new ArrayList<>();
+        this.discountManager = discountManager;
+        this.currencyConverter = currencyConverter;
     }
 
     // Method to add a product to the cart
@@ -41,8 +49,27 @@ public class Cart {
         return total;
     }
 
+    // Method to apply discounts and calculate the final total
+    public double calculateFinalTotal() {
+        double total = calculateTotal();
+        total = discountManager.applyDiscounts(products, total);
+        return total;
+    }
+
+    // Method to calculate total in a different currency
+    public double calculateTotalInCurrency(String targetCurrency) {
+        double total = calculateFinalTotal();
+        String sourceCurrency = products.get(0).getCurrency();
+        double convertedTotal = currencyConverter.convert(total, sourceCurrency, targetCurrency);
+        return convertedTotal;
+    }
+
     // Getter for products
     public List<Product> getProducts() {
         return products;
+    }
+
+    public CurrencyConverter getCurrencyConverter() {
+        return currencyConverter;
     }
 }
