@@ -65,7 +65,7 @@ public class App {
                     break;
                 case EXIT:
                     running = false;
-                    ui.displayMessage("Thank you for visiting Guilded Rose. Goodbye!");
+                    ui.displayMessage("Thank you for visiting Gilded Rose. Goodbye!");
                     break;
                 default:
                     ui.displayMessage("Invalid choice. Please enter a number from 1 to 5.");
