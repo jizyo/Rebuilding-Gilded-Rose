@@ -5,6 +5,7 @@ import com.guildedrose.models.Product;
 import com.guildedrose.services.CurrencyConverter;
 import com.guildedrose.services.DiscountManager;
 import com.guildedrose.services.ProductData;
+import com.guildedrose.ui.MenuOption;
 import com.guildedrose.ui.UserInterface;
 
 import java.util.List;
@@ -41,24 +42,28 @@ public class App {
                 continue;
             }
 
-            switch (choice) {
-                case 1:
-                    // View Products
+            // Convert user choice to MenuOption
+            MenuOption selectedOption = MenuOption.fromInt(choice);
+
+            if (selectedOption == null) {
+                ui.displayMessage("Invalid choice. Please enter a number from 1 to 5.");
+                continue;
+            }
+
+            switch (selectedOption) {
+                case VIEW_PRODUCTS:
                     ui.displayProducts(products);
                     break;
-                case 2:
-                    // Add Product to Cart
+                case ADD_TO_CART:
                     addProductToCart(products, cart, ui);
                     break;
-                case 3:
-                    // View Cart
+                case VIEW_CART:
                     ui.displayCart(cart);
                     break;
-                case 4:
-                    // Checkout
+                case CHECKOUT:
                     checkout(cart, ui);
                     break;
-                case 5:
+                case EXIT:
                     running = false;
                     ui.displayMessage("Thank you for visiting Guilded Rose. Goodbye!");
                     break;
@@ -66,7 +71,6 @@ public class App {
                     ui.displayMessage("Invalid choice. Please enter a number from 1 to 5.");
             }
         }
-
         // Close resources
         ui.close();
     }
