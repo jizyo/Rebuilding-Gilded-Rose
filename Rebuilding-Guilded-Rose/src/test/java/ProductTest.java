@@ -1,4 +1,4 @@
-import com.guildedrose.models.Product;
+import com.gildedrose.models.Product;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

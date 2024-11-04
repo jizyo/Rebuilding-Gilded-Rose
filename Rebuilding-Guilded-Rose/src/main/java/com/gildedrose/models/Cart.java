@@ -1,7 +1,7 @@
-package com.guildedrose.models;
+package com.gildedrose.models;
 
-import com.guildedrose.services.CurrencyConverter;
-import com.guildedrose.services.DiscountManager;
+import com.gildedrose.services.CurrencyConverter;
+import com.gildedrose.services.DiscountManager;
 
 import java.util.ArrayList;
 import java.util.List;

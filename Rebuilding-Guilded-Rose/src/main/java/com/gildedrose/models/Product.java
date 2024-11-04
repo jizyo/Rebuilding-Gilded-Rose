@@ -1,4 +1,4 @@
-package com.guildedrose.models;
+package com.gildedrose.models;
 
 public class Product {
     private String name;

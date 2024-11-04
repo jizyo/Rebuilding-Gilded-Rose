@@ -1,18 +1,18 @@
-package com.guildedrose;
+package com.gildedrose;
 
-import com.guildedrose.models.Cart;
-import com.guildedrose.models.Product;
-import com.guildedrose.services.CurrencyConverter;
-import com.guildedrose.services.DiscountManager;
-import com.guildedrose.services.ProductData;
-import com.guildedrose.ui.MenuOption;
-import com.guildedrose.ui.UserInterface;
+import com.gildedrose.models.Cart;
+import com.gildedrose.models.Product;
+import com.gildedrose.services.CurrencyConverter;
+import com.gildedrose.services.DiscountManager;
+import com.gildedrose.services.ProductData;
+import com.gildedrose.ui.MenuOption;
+import com.gildedrose.ui.UserInterface;
 
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("Welcome to Guilded Rose!");
+        System.out.println("Welcome to Gilded Rose!");
 
         // Initialize the UserInterface
         UserInterface ui = new UserInterface();
@@ -105,7 +105,7 @@ public class App {
 
         // Confirm the purchase
         if (ui.confirmPurchase()) {
-            ui.displayMessage("Purchase confirmed! Thank you for shopping at Guilded Rose.");
+            ui.displayMessage("Purchase confirmed! Thank you for shopping at Gilded Rose.");
             cart.getProducts().clear(); // Empty the cart after purchase
         } else {
             ui.displayMessage("Purchase cancelled. You can continue shopping.");

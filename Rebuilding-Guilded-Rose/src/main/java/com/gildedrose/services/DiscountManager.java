@@ -1,6 +1,6 @@
-package com.guildedrose.services;
+package com.gildedrose.services;
 
-import com.guildedrose.models.Product;
+import com.gildedrose.models.Product;
 
 import java.util.List;
 

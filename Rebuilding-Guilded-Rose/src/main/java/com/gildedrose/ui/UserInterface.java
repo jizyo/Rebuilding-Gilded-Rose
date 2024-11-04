@@ -1,8 +1,8 @@
-package com.guildedrose.ui;
+package com.gildedrose.ui;
 
-import com.guildedrose.models.Product;
-import com.guildedrose.models.Cart;
-import com.guildedrose.services.CurrencyConverter;
+import com.gildedrose.models.Product;
+import com.gildedrose.models.Cart;
+import com.gildedrose.services.CurrencyConverter;
 
 import java.util.List;
 import java.util.Scanner;

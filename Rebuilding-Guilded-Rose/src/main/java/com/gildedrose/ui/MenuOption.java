@@ -1,4 +1,4 @@
-package com.guildedrose.ui;
+package com.gildedrose.ui;
 
 public enum MenuOption {
     VIEW_PRODUCTS(1),

@@ -1,4 +1,4 @@
-package com.guildedrose.services;
+package com.gildedrose.services;
 
 import java.util.HashMap;
 import java.util.Map;
